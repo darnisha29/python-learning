@@ -34,10 +34,33 @@ def binary_search_recursive(number_list,number_to_find,start,end):
     else:
         return binary_search_recursive(number_list,number_to_find,start,mid-1)
 
+def find_all_occurances(numbers, number_to_find):
+    index = binary_search(numbers, number_to_find)
+    indices = [index]
+    # find indices on left hand side
+    i = index-1
+    while i >=0:
+        if numbers[i] == number_to_find:
+            indices.append(i)
+        else:
+            break
+        i = i - 1
+
+    # find indices on right hand side
+    i = index + 1
+    while i<len(numbers):
+        if numbers[i] == number_to_find:
+            indices.append(i)
+        else:
+            break
+        i = i + 1
+
+    return sorted(indices)
 
 
 if __name__ == '__main__':
-    numbers = [4,6,9,11,15,19,22,27,31,36,40]
+    numbers = [1,4,6,9,11,15,15,15,17,21,34,34,56]
 
-    print(f"Number found at index ::  {binary_search(numbers,4)} :: using binary search")
-    print(f"Number found at index :: {binary_search_recursive(numbers,4,0,len(numbers)-1)} :: using binary search recursive")
+    print(f"Number found at index ::  {binary_search(numbers,15)} :: using binary search")
+    print(f"Number found at index :: {binary_search_recursive(numbers,15,0,len(numbers)-1)} :: using binary search recursive")
+    print(f"All occurrences of number found at indices :: {find_all_occurances(numbers,15)}")
